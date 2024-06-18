@@ -6,4 +6,9 @@ public class EnemyBase extends Enemy {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
+	public void move() {
+		super.move();
+		if (x > 300)
+			vx = -1;
+	}
 }
