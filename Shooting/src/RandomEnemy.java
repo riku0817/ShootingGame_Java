@@ -9,6 +9,7 @@ public class RandomEnemy extends Enemy {
 
 	public RandomEnemy(double x, double y, double vx, double vy) {
 		super(x, y, vx, vy);
+		life = 2;
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
