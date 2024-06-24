@@ -7,6 +7,7 @@ public class GameFrame extends MyFrame {
 		GameWorld.playerBullets = new Vector<PlayerBullet>();
 		GameWorld.enemies = new Vector<Enemy>();
 		GameWorld.enemies.add(new EnemyBase(100, 50, 1, 0));
+		GameWorld.enterPressed = false;
 		while (true) {
 			clear();
 			GameWorld.player.draw(this);
@@ -15,6 +16,19 @@ public class GameFrame extends MyFrame {
 			moveEnemies();
 			checkPlayerAndEnemies();
 			checkPlayerBulletsAndEnemies();
+			if (GameWorld.enemies.size() == 0) {
+				setColor(0, 0, 0);
+				drawString("クリア!", 100, 200, 40);
+				if (GameWorld.enterPressed) {
+					break;
+				}
+			} else if (GameWorld.player.y < 0) {
+				setColor(0, 0, 0);
+				drawString("ゲームオーバー!", 50, 200, 40);
+				if (GameWorld.enterPressed) {
+					break;
+				}
+			}
 			sleep(0.03);
 		}
 	}
@@ -38,6 +52,15 @@ public class GameFrame extends MyFrame {
 			Enemy e = GameWorld.enemies.get(i);
 			e.draw(this);
 			e.move();
+		}
+		int i = 0;
+		while (i < GameWorld.enemies.size()) {
+			Enemy e = GameWorld.enemies.get(i);
+			if (e.y > 400) {
+				GameWorld.enemies.remove(i);
+			} else {
+				i++;
+			}
 		}
 	}
 
@@ -79,7 +102,7 @@ public class GameFrame extends MyFrame {
 	}
 
 	public boolean checkHit(Character a, Character b) {
-		return Math.abs(a.x - b.x) <= 10 && Math.abs(a.y - b.y) <= 10;
+		return Math.abs(a.x - b.x) <= 15 && Math.abs(a.y - b.y) <= 15;
 
 	}
 }
