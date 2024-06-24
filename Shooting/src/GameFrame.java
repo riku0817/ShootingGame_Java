@@ -55,17 +55,30 @@ public class GameFrame extends MyFrame {
 	public void checkPlayerBulletsAndEnemies() {
 		int i = 0;
 		while (i < GameWorld.playerBullets.size()) {
+
+			// プレイヤー弾一つ一つについて、変数bに入れて繰り返し実行する
 			PlayerBullet b = GameWorld.playerBullets.get(i);
 			int j = 0;
+			int hits = 0;
 			while (j < GameWorld.enemies.size()) {
-				Enemy e = GameWorld.enemies.get(i);
-				if (Math.abs(e.x - b.x) <= 30 &&
-						Math.abs(e.y - b.y) <= 30) {
+
+				// 敵一つ一つについて、変数eに入れて繰り返し実行する
+				Enemy e = GameWorld.enemies.get(j);
+
+				// 敵e とプレイヤー弾bが衝突していたら「あたり」を表示
+				if (Math.abs(e.x - b.x) <= 30 && Math.abs(e.y - b.y) <= 30) {
 					System.out.println("あたり");
+					hits++;
+					GameWorld.enemies.remove(j);
+				} else {
+					j++;
 				}
-				j++;
 			}
-			i++;
+			if (hits > 0) {
+				GameWorld.playerBullets.remove(i);
+			} else {
+				i++;
+			}
 		}
 	}
 }
