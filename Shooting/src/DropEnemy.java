@@ -8,13 +8,13 @@ public class DropEnemy extends Enemy {
 
 	public DropEnemy(double x, double y, double vx, double vy) {
 		super(x, y, vx, vy);
-		life = 1;
+		life = 1 + (GameWorld.stage - 1);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public void move() {
 		super.move();
-		vy = vy + 0.1;
+		vy = vy + (GameWorld.stage * 0.1);
 	}
 
 }
